@@ -12,6 +12,13 @@ This repository accompanies our paper, which investigates **position bias**—a 
 
 We propose a unified evaluation framework and introduce **two position-aware retrieval datasets** that reveal how popular retrieval models—including sparse (BM25), dense embedding-based, ColBERT-style, and reranker models—perform across different key information positions. Our analysis includes a diagnostic metric, **Position Sensitivity Index (PSI)**, to quantify this bias from a worst-case perspective.
 
+## 📈 Key Findings
+
+* **BM25** is robust to position shifts due to its position-agnostic nature.
+* **Dense embedding models** and **ColBERT-style models** show **significant performance drops** as query-related content move to later sections.
+* **Reranker models** are **largely immune to position bias**, making them a strong solution for mitigating early-passage overemphasis.
+
+📄 See detailed results in our paper (Table 1).
 
 ## 📊 Datasets
 
@@ -114,7 +121,7 @@ All experiments are evaluated using both **Recall** and **NDCG** to measure retr
 We also propose the **Position Sensitivity Index (PSI)** to quantify position bias:
 
 $$
-\text{PSI} = 1 - \frac{\min(\text{position\_scores})}{\max(\text{position\_scores})}
+\text{PSI} = 1 - \frac{\min(\text{group scores})}{\max(\text{group scores})}
 $$
 
 A lower PSI indicates greater robustness to answer position shifts.
@@ -136,14 +143,6 @@ For example, the metrics of `Qwen/Qwen3-Reranker-0.6B` on `FineWeb-PosQ` are as 
 > Qwen/Qwen3-Reranker-0.6B, 1000, end, 0.9660, 0.9780, 0.9830, 0.9830, 0.9860, 0.9860, 0.9210, **0.9246**, 0.9260, 0.9260, 0.9266, 0.9266
 
 > PSI value = 1 - 0.9246 / 0.9503 = 1 - 0.973 = 0.027 
-
-## 📈 Key Findings
-
-* **BM25** is robust to position shifts due to its position-agnostic nature.
-* **Dense embedding models** and **ColBERT-style models** show **significant performance drops** as query-related content move to later sections.
-* **Reranker models** are **largely immune to position bias**, making them a strong solution for mitigating early-passage overemphasis.
-
-📄 See detailed results in our paper (Table 1).
 
 
 ## Citation
